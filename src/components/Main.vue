@@ -12,14 +12,13 @@
     </button>
 
     <div class="loading" v-if="progress > 0">
-      Progress: {{progress*100}}%
+      Progress: {{ progress * 100 }}%
     </div>
 
     <div class="imageContent" v-if="imageText">
       <h2>Here is your text:</h2>
-      {{imageText}}
+      {{ imageText }}
     </div>
-    
   </div>
 </template>
 
@@ -33,29 +32,27 @@ export default {
     return {
       file: undefined,
       progress: 0,
-      imageText: ''
+      imageText: "",
     };
   },
 
   methods: {
     preloadFile(event) {
       const file = event.target.files[0];
-      console.log(file);
       this.file = file;
     },
 
     readImage() {
-      console.log(this.file);
-
       Tesseract.recognize(this.file, "eng", {
         logger: (m) => {
-          this.progress = m.progress
+          this.progress = m.progress;
         },
       }).then(({ data: { text } }) => {
-        this.imageText = text
+        this.imageText = text;
       });
     },
   },
+
 };
 </script>
 
@@ -69,7 +66,7 @@ export default {
   max-width: 800px;
 }
 
-.loadButton{
+.loadButton {
   margin: 35px 0;
 }
 </style>
